@@ -1,6 +1,5 @@
 
 public class UserInterface {
-	package kk;
 
 	import java.awt.EventQueue;
 
@@ -205,4 +204,4 @@ public class UserInterface {
 			frame.getContentPane().add(btnUppgift1);
 		}
 	}
-}
+
