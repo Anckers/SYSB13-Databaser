@@ -11,6 +11,9 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class windowbuilder {
 
@@ -18,9 +21,9 @@ public class windowbuilder {
 	private JTextField txtRegisterStudentSsn;
 	private JTextField txtRegisterStudentName;
 	private JTextField txtRegisterStudentAdress;
-	private JTextField txtAddCourseCourseCode;
-	private JTextField txtAddCourseCourseName;
-	private JTextField txtAddCourseDuration;
+	private JTextField txtAddCourseCode;
+	private JTextField txtAddCourseName;
+	private JTextField txtAddCourseCredit;
 
 	/**
 	 * Launch the application.
@@ -57,122 +60,122 @@ public class windowbuilder {
 		frame.getContentPane().add(tab, BorderLayout.CENTER);
 		
 		JTabbedPane masterTabPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tab.addTab("New tab", null, masterTabPane_1, null);
+		tab.addTab("Assignment 1", null, masterTabPane_1, "Working Title");
 		
 		JPanel registerStudent = new JPanel();
 		masterTabPane_1.addTab("Registrering", null, registerStudent, null);
-		registerStudent.setLayout(null);
 		
 		JLabel lblRegisterStudent = new JLabel("Register student");
-		lblRegisterStudent.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 16));
 		lblRegisterStudent.setBounds(20, 11, 138, 29);
-		registerStudent.add(lblRegisterStudent);
+		lblRegisterStudent.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 16));
 		
 		JLabel lblRegisterStudentSsn = new JLabel("Social Security nr:");
-		lblRegisterStudentSsn.setBounds(45, 45, 90, 14);
-		registerStudent.add(lblRegisterStudentSsn);
+		lblRegisterStudentSsn.setBounds(45, 45, 120, 14);
 		
 		txtRegisterStudentSsn = new JTextField();
-		txtRegisterStudentSsn.setBounds(150, 45, 160, 20);
-		registerStudent.add(txtRegisterStudentSsn);
+		txtRegisterStudentSsn.setBounds(177, 45, 160, 20);
 		txtRegisterStudentSsn.setColumns(10);
 		
 		JLabel lblRegisterStudentAxterixSsn = new JLabel("*");
-		lblRegisterStudentAxterixSsn.setForeground(Color.RED);
 		lblRegisterStudentAxterixSsn.setBounds(25, 47, 14, 14);
-		registerStudent.add(lblRegisterStudentAxterixSsn);
+		lblRegisterStudentAxterixSsn.setForeground(Color.RED);
 		
 		JLabel lblRegisterStudentName = new JLabel("Name:");
 		lblRegisterStudentName.setBounds(45, 70, 69, 14);
-		registerStudent.add(lblRegisterStudentName);
 		
 		txtRegisterStudentName = new JTextField();
+		txtRegisterStudentName.setBounds(177, 70, 160, 20);
 		txtRegisterStudentName.setColumns(10);
-		txtRegisterStudentName.setBounds(150, 70, 160, 20);
-		registerStudent.add(txtRegisterStudentName);
 		
 		JLabel lblRegisterStudentAsterixName = new JLabel("*");
-		lblRegisterStudentAsterixName.setForeground(Color.RED);
 		lblRegisterStudentAsterixName.setBounds(25, 72, 14, 14);
-		registerStudent.add(lblRegisterStudentAsterixName);
+		lblRegisterStudentAsterixName.setForeground(Color.RED);
 		
 		JLabel lblRegisterStudentAdress = new JLabel("Adress:");
 		lblRegisterStudentAdress.setBounds(45, 97, 46, 14);
-		registerStudent.add(lblRegisterStudentAdress);
 		
 		txtRegisterStudentAdress = new JTextField();
+		txtRegisterStudentAdress.setBounds(177, 94, 160, 20);
 		txtRegisterStudentAdress.setColumns(10);
-		txtRegisterStudentAdress.setBounds(150, 94, 160, 20);
-		registerStudent.add(txtRegisterStudentAdress);
 		
 		JLabel lblRegisterStudentAsterixAdress = new JLabel("*");
-		lblRegisterStudentAsterixAdress.setForeground(Color.RED);
 		lblRegisterStudentAsterixAdress.setBounds(25, 100, 14, 14);
-		registerStudent.add(lblRegisterStudentAsterixAdress);
+		lblRegisterStudentAsterixAdress.setForeground(Color.RED);
 		
 		JButton btnRegisterStudent = new JButton("Registrera student");
-		btnRegisterStudent.setBounds(150, 125, 130, 30);
-		registerStudent.add(btnRegisterStudent);
+		btnRegisterStudent.setBounds(177, 127, 130, 30);
 		
 		JLabel lblAddCourse = new JLabel("Add course");
-		lblAddCourse.setFont(new Font("Dialog", Font.PLAIN, 16));
 		lblAddCourse.setBounds(450, 11, 138, 29);
-		registerStudent.add(lblAddCourse);
+		lblAddCourse.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 16));
 		
-		JLabel lblAddCourseCourseCode = new JLabel("Course Code:");
-		lblAddCourseCourseCode.setBounds(475, 45, 69, 14);
-		registerStudent.add(lblAddCourseCourseCode);
+		JLabel lblAddCourseCode = new JLabel("Course Code:");
+		lblAddCourseCode.setBounds(475, 45, 87, 14);
 		
-		txtAddCourseCourseCode = new JTextField();
-		txtAddCourseCourseCode.setColumns(10);
-		txtAddCourseCourseCode.setBounds(580, 42, 160, 20);
-		registerStudent.add(txtAddCourseCourseCode);
+		txtAddCourseCode = new JTextField();
+		txtAddCourseCode.setBounds(580, 41, 160, 20);
+		txtAddCourseCode.setColumns(10);
 		
-		JLabel lblAddCourseAsterixCourseCode = new JLabel("*");
-		lblAddCourseAsterixCourseCode.setForeground(Color.RED);
-		lblAddCourseAsterixCourseCode.setBounds(455, 45, 14, 14);
-		registerStudent.add(lblAddCourseAsterixCourseCode);
+		JLabel lblAddCourseAsterixCode = new JLabel("*");
+		lblAddCourseAsterixCode.setBounds(455, 45, 14, 14);
+		lblAddCourseAsterixCode.setForeground(Color.RED);
 		
-		JLabel lblAddCourseCourseName = new JLabel("Kursnamn:");
-		lblAddCourseCourseName.setBounds(475, 70, 69, 14);
-		registerStudent.add(lblAddCourseCourseName);
+		JLabel lblAddCourseName = new JLabel("Course Name:");
+		lblAddCourseName.setBounds(475, 70, 93, 14);
 		
-		txtAddCourseCourseName = new JTextField();
-		txtAddCourseCourseName.setColumns(10);
-		txtAddCourseCourseName.setBounds(580, 67, 160, 20);
-		registerStudent.add(txtAddCourseCourseName);
+		txtAddCourseName = new JTextField();
+		txtAddCourseName.setBounds(580, 66, 160, 20);
+		txtAddCourseName.setColumns(10);
 		
-		JLabel lblAddCourseAsterixCourseName = new JLabel("*");
-		lblAddCourseAsterixCourseName.setForeground(Color.RED);
-		lblAddCourseAsterixCourseName.setBounds(455, 70, 14, 14);
-		registerStudent.add(lblAddCourseAsterixCourseName);
+		JLabel lblAddCourseAsterixName = new JLabel("*");
+		lblAddCourseAsterixName.setBounds(455, 70, 14, 14);
+		lblAddCourseAsterixName.setForeground(Color.RED);
 		
-		JLabel lblAddCourseDuration = new JLabel("H\u00F6gskolepo\u00E4ng:");
-		lblAddCourseDuration.setBounds(475, 97, 80, 14);
-		registerStudent.add(lblAddCourseDuration);
+		JLabel lblAddCourseCredit = new JLabel("Course credit:");
+		lblAddCourseCredit.setBounds(476, 97, 92, 14);
 		
-		JLabel lblAddCourseAsterixDuration = new JLabel("*");
-		lblAddCourseAsterixDuration.setForeground(Color.RED);
-		lblAddCourseAsterixDuration.setBounds(455, 97, 14, 14);
-		registerStudent.add(lblAddCourseAsterixDuration);
+		JLabel lblAddCourseAsterixCredit = new JLabel("*");
+		lblAddCourseAsterixCredit.setBounds(455, 100, 14, 14);
+		lblAddCourseAsterixCredit.setForeground(Color.RED);
 		
-		txtAddCourseDuration = new JTextField();
-		txtAddCourseDuration.setColumns(10);
-		txtAddCourseDuration.setBounds(580, 91, 160, 20);
-		registerStudent.add(txtAddCourseDuration);
+		txtAddCourseCredit = new JTextField();
+		txtAddCourseCredit.setBounds(580, 93, 160, 20);
+		txtAddCourseCredit.setColumns(10);
 		
 		JButton button = new JButton("Registrera student");
-		button.setBounds(580, 125, 130, 30);
-		registerStudent.add(button);
+		button.setBounds(580, 127, 130, 30);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 215, 1280, 10);
-		registerStudent.add(separator);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1.setBounds(396, 0, 8, 215);
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		registerStudent.setLayout(null);
+		registerStudent.add(lblRegisterStudent);
+		registerStudent.add(lblRegisterStudentAxterixSsn);
+		registerStudent.add(txtRegisterStudentSsn);
+		registerStudent.add(lblRegisterStudentSsn);
+		registerStudent.add(lblRegisterStudentAsterixName);
+		registerStudent.add(lblRegisterStudentName);
+		registerStudent.add(txtRegisterStudentName);
+		registerStudent.add(lblRegisterStudentAsterixAdress);
+		registerStudent.add(lblRegisterStudentAdress);
+		registerStudent.add(btnRegisterStudent);
+		registerStudent.add(txtRegisterStudentAdress);
 		registerStudent.add(separator_1);
+		registerStudent.add(lblAddCourse);
+		registerStudent.add(lblAddCourseAsterixCode);
+		registerStudent.add(lblAddCourseCode);
+		registerStudent.add(txtAddCourseCode);
+		registerStudent.add(lblAddCourseAsterixCredit);
+		registerStudent.add(lblAddCourseCredit);
+		registerStudent.add(txtAddCourseCredit);
+		registerStudent.add(lblAddCourseAsterixName);
+		registerStudent.add(button);
+		registerStudent.add(lblAddCourseName);
+		registerStudent.add(txtAddCourseName);
+		registerStudent.add(separator);
 		
 		JPanel searchStudent = new JPanel();
 		masterTabPane_1.addTab("S\u00F6k", null, searchStudent, null);
