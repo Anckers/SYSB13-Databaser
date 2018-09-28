@@ -62,8 +62,8 @@ public class windowbuilder {
 		JTabbedPane masterTabPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		tab.addTab("Assignment 1", null, masterTabPane_1, "Working Title");
 		
-		JPanel registerStudent = new JPanel();
-		masterTabPane_1.addTab("Registrering", null, registerStudent, null);
+		JPanel register = new JPanel();
+		masterTabPane_1.addTab("Register", null, register, null);
 		
 		JLabel lblRegisterStudent = new JLabel("Register student");
 		lblRegisterStudent.setBounds(20, 11, 138, 29);
@@ -102,7 +102,7 @@ public class windowbuilder {
 		lblRegisterStudentAsterixAdress.setBounds(25, 100, 14, 14);
 		lblRegisterStudentAsterixAdress.setForeground(Color.RED);
 		
-		JButton btnRegisterStudent = new JButton("Registrera student");
+		JButton btnRegisterStudent = new JButton("Register student");
 		btnRegisterStudent.setBounds(177, 127, 130, 30);
 		
 		JLabel lblAddCourse = new JLabel("Add course");
@@ -142,8 +142,8 @@ public class windowbuilder {
 		txtAddCourseCredit.setBounds(580, 93, 160, 20);
 		txtAddCourseCredit.setColumns(10);
 		
-		JButton button = new JButton("Registrera student");
-		button.setBounds(580, 127, 130, 30);
+		JButton btnRegisterCourse = new JButton("Register Course");
+		btnRegisterCourse.setBounds(580, 127, 130, 30);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 215, 1280, 10);
@@ -151,36 +151,36 @@ public class windowbuilder {
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(396, 0, 8, 215);
 		separator_1.setOrientation(SwingConstants.VERTICAL);
-		registerStudent.setLayout(null);
-		registerStudent.add(lblRegisterStudent);
-		registerStudent.add(lblRegisterStudentAxterixSsn);
-		registerStudent.add(txtRegisterStudentSsn);
-		registerStudent.add(lblRegisterStudentSsn);
-		registerStudent.add(lblRegisterStudentAsterixName);
-		registerStudent.add(lblRegisterStudentName);
-		registerStudent.add(txtRegisterStudentName);
-		registerStudent.add(lblRegisterStudentAsterixAdress);
-		registerStudent.add(lblRegisterStudentAdress);
-		registerStudent.add(btnRegisterStudent);
-		registerStudent.add(txtRegisterStudentAdress);
-		registerStudent.add(separator_1);
-		registerStudent.add(lblAddCourse);
-		registerStudent.add(lblAddCourseAsterixCode);
-		registerStudent.add(lblAddCourseCode);
-		registerStudent.add(txtAddCourseCode);
-		registerStudent.add(lblAddCourseAsterixCredit);
-		registerStudent.add(lblAddCourseCredit);
-		registerStudent.add(txtAddCourseCredit);
-		registerStudent.add(lblAddCourseAsterixName);
-		registerStudent.add(button);
-		registerStudent.add(lblAddCourseName);
-		registerStudent.add(txtAddCourseName);
-		registerStudent.add(separator);
+		register.setLayout(null);
+		register.add(lblRegisterStudent);
+		register.add(lblRegisterStudentAxterixSsn);
+		register.add(txtRegisterStudentSsn);
+		register.add(lblRegisterStudentSsn);
+		register.add(lblRegisterStudentAsterixName);
+		register.add(lblRegisterStudentName);
+		register.add(txtRegisterStudentName);
+		register.add(lblRegisterStudentAsterixAdress);
+		register.add(lblRegisterStudentAdress);
+		register.add(btnRegisterStudent);
+		register.add(txtRegisterStudentAdress);
+		register.add(separator_1);
+		register.add(lblAddCourse);
+		register.add(lblAddCourseAsterixCode);
+		register.add(lblAddCourseCode);
+		register.add(txtAddCourseCode);
+		register.add(lblAddCourseAsterixCredit);
+		register.add(lblAddCourseCredit);
+		register.add(txtAddCourseCredit);
+		register.add(lblAddCourseAsterixName);
+		register.add(btnRegisterCourse);
+		register.add(lblAddCourseName);
+		register.add(txtAddCourseName);
+		register.add(separator);
 		
-		JPanel searchStudent = new JPanel();
-		masterTabPane_1.addTab("S\u00F6k", null, searchStudent, null);
+		JPanel search = new JPanel();
+		masterTabPane_1.addTab("Search", null, search, null);
 		
-		JPanel deleteStudent = new JPanel();
-		masterTabPane_1.addTab("Ta bort", null, deleteStudent, null);
+		JPanel delete = new JPanel();
+		masterTabPane_1.addTab("Delete", null, delete, null);
 	}
 }
