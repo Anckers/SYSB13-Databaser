@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.JLabel;
 
 public class windowbuilder {
 
@@ -43,14 +46,26 @@ public class windowbuilder {
 		JTabbedPane tab = new JTabbedPane(JTabbedPane.TOP);
 		frame.getContentPane().add(tab, BorderLayout.CENTER);
 		
-		JPanel panel1 = new JPanel();
-		tab.addTab("New tab", null, panel1, null);
+		JTabbedPane masterTabPane_1 = new JTabbedPane(JTabbedPane.TOP);
+		tab.addTab("New tab", null, masterTabPane_1, null);
 		
-		JPanel panel2 = new JPanel();
-		tab.addTab("New tab", null, panel2, null);
+		JPanel registerStudent = new JPanel();
+		masterTabPane_1.addTab("Registrering", null, registerStudent, null);
+		registerStudent.setLayout(null);
 		
-		JPanel panel3 = new JPanel();
-		tab.addTab("New tab", null, panel3, null);
+		JLabel lblRegisterStudent = new JLabel("Registrera student");
+		lblRegisterStudent.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 16));
+		lblRegisterStudent.setBounds(10, 11, 138, 29);
+		registerStudent.add(lblRegisterStudent);
+		
+		JLabel lblRegisterStudentSsn = new JLabel("Personnr:");
+		lblRegisterStudentSsn.setBounds(20, 45, 69, 14);
+		registerStudent.add(lblRegisterStudentSsn);
+		
+		JPanel searchStudent = new JPanel();
+		masterTabPane_1.addTab("S\u00F6k", null, searchStudent, null);
+		
+		JPanel deleteStudent = new JPanel();
+		masterTabPane_1.addTab("Ta bort", null, deleteStudent, null);
 	}
-
 }
