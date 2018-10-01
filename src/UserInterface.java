@@ -20,7 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-public class windowbuilder {
+public class UserInterface{
 
 	private JFrame frame;
 	private JTextField txtRegisterStudentSsn;
@@ -43,7 +43,7 @@ public class windowbuilder {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					windowbuilder window = new windowbuilder();
+					UserInterface window = new UserInterface();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +55,7 @@ public class windowbuilder {
 	/**
 	 * Create the application.
 	 */
-	public windowbuilder() {
+	public UserInterface() {
 		initialize();
 	}
 //ANAS
