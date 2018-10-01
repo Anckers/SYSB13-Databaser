@@ -241,7 +241,7 @@ public class UserInterface{
 		
 		String cbNewCourse = "Starting course";
 		String cbCompletedCourse = "Finished course";
-		JComboBox comboBoxRegisterStudentToCourseState = new JComboBox();
+		JComboBox<String> comboBoxRegisterStudentToCourseState = new JComboBox<String>();
 		comboBoxRegisterStudentToCourseState.addItem("");
 		comboBoxRegisterStudentToCourseState.addItem(cbNewCourse);
 		comboBoxRegisterStudentToCourseState.addItem(cbCompletedCourse);
@@ -249,7 +249,7 @@ public class UserInterface{
 		register.add(comboBoxRegisterStudentToCourseState);
 		
 
-		JComboBox comboBoxRegisterStudentToCourseGrade = new JComboBox();
+		JComboBox<String> comboBoxRegisterStudentToCourseGrade = new JComboBox<String>();
 		comboBoxRegisterStudentToCourseGrade.addItem("");
 		comboBoxRegisterStudentToCourseGrade.addItem("F");
 		comboBoxRegisterStudentToCourseGrade.addItem("E");
