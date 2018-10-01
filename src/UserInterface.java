@@ -19,6 +19,8 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UserInterface{
 
@@ -114,6 +116,17 @@ public class UserInterface{
 		lblRegisterStudentAsterixAdress.setForeground(Color.RED);
 		
 		JButton btnRegisterStudent = new JButton("Register student");
+		btnRegisterStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String studentSsn = txtRegisterStudentSsn.getText();
+				String studentName = txtRegisterStudentName.getText();
+				String studentAdress = txtRegisterStudentAdress.getText();
+				
+				if(studentSsn.isEmpty() || studentName.isEmpty() || studentAdress.isEmpty()) {
+					
+				}
+			}
+		});
 		btnRegisterStudent.setBounds(177, 127, 130, 30);
 		
 		JLabel lblAddCourse = new JLabel("Add course");
@@ -224,11 +237,6 @@ public class UserInterface{
 		lblRegisterStudentToCourseGrade.setBounds(40, 353, 120, 14);
 		register.add(lblRegisterStudentToCourseGrade);
 		
-		JLabel lblRegisterStudentToCourseGradeAsterix = new JLabel("*");
-		lblRegisterStudentToCourseGradeAsterix.setForeground(Color.RED);
-		lblRegisterStudentToCourseGradeAsterix.setBounds(20, 356, 14, 14);
-		register.add(lblRegisterStudentToCourseGradeAsterix);
-		
 		txtRegisterStudentToCourseSsn = new JTextField();
 		txtRegisterStudentToCourseSsn.setColumns(10);
 		txtRegisterStudentToCourseSsn.setBounds(209, 268, 160, 20);
@@ -275,6 +283,10 @@ public class UserInterface{
 		tableCoursesHeader = new JTable();
 		tableCoursesHeader.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneCourses.setColumnHeaderView(tableCoursesHeader);
+		
+		JLabel lblRegisterStudentMessage = new JLabel("");
+		lblRegisterStudentMessage.setBounds(20, 171, 317, 20);
+		register.add(lblRegisterStudentMessage);
 		
 		JPanel search = new JPanel();
 		masterTabPane_1.addTab("Search", null, search, null);
