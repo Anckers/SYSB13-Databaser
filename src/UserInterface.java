@@ -20,7 +20,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import SQLError.SQLErrorMapping;
+
 
 public class UserInterface{
 
@@ -115,6 +118,9 @@ public class UserInterface{
 		lblRegisterStudentAsterixAdress.setBounds(25, 100, 14, 14);
 		lblRegisterStudentAsterixAdress.setForeground(Color.RED);
 		
+		JLabel lblRegisterStudentMessage = new JLabel("");
+		lblRegisterStudentMessage.setBounds(20, 171, 317, 20);
+		
 		JButton btnRegisterStudent = new JButton("Register student");
 		btnRegisterStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -123,7 +129,22 @@ public class UserInterface{
 				String studentAdress = txtRegisterStudentAdress.getText();
 				
 				if(studentSsn.isEmpty() || studentName.isEmpty() || studentAdress.isEmpty()) {
+					lblRegisterStudentMessage.setForeground(Color.RED);
+					lblRegisterStudentMessage.setText("All fields are requierd");	
+				} else {
+					try {
+						lblRegisterStudentMessage.setForeground(Color.GREEN);
+						lblRegisterStudentMessage.setText("Student " + studentName + "has been added");
+						txtRegisterStudentAdress.setText(null);
+						txtRegisterStudentName.setText(null);
+						txtRegisterStudentSsn.setText(null);
+						
+					}
 					
+					catch (SQLException sql) {
+						lblRegisterStudentMessage.setForeground(Color.RED);
+						lblRegisterStudentMessage.setText(SQLErrorMapping.getMessageForErrorCode(sql.getErrorCode(), "student"));
+					}
 				}
 			}
 		});
@@ -166,6 +187,10 @@ public class UserInterface{
 		txtAddCourseCredit.setBounds(580, 93, 160, 20);
 		txtAddCourseCredit.setColumns(10);
 		
+		JLabel lblAddCourseMessage = new JLabel("");
+		lblAddCourseMessage.setBounds(450, 171, 290, 20);
+		register.add(lblAddCourseMessage);
+		
 		JButton btnRegisterCourse = new JButton("Register Course");
 		btnRegisterCourse.setBounds(580, 127, 130, 30);
 		
@@ -185,6 +210,9 @@ public class UserInterface{
 		register.add(txtRegisterStudentName);
 		register.add(lblRegisterStudentAsterixAdress);
 		register.add(lblRegisterStudentAdress);
+		
+
+		register.add(lblRegisterStudentMessage);
 		register.add(btnRegisterStudent);
 		register.add(txtRegisterStudentAdress);
 		register.add(separator_1);
@@ -283,10 +311,7 @@ public class UserInterface{
 		tableCoursesHeader = new JTable();
 		tableCoursesHeader.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneCourses.setColumnHeaderView(tableCoursesHeader);
-		
-		JLabel lblRegisterStudentMessage = new JLabel("");
-		lblRegisterStudentMessage.setBounds(20, 171, 317, 20);
-		register.add(lblRegisterStudentMessage);
+	
 		
 		JPanel search = new JPanel();
 		masterTabPane_1.addTab("Search", null, search, null);
