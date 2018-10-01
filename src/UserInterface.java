@@ -127,24 +127,26 @@ public class UserInterface{
 				String studentSsn = txtRegisterStudentSsn.getText();
 				String studentName = txtRegisterStudentName.getText();
 				String studentAdress = txtRegisterStudentAdress.getText();
-				
+				lblRegisterStudentMessage.setText(null);
 				if(studentSsn.isEmpty() || studentName.isEmpty() || studentAdress.isEmpty()) {
 					lblRegisterStudentMessage.setForeground(Color.RED);
 					lblRegisterStudentMessage.setText("All fields are requierd");	
 				} else {
-					try {
-						lblRegisterStudentMessage.setForeground(Color.GREEN);
-						lblRegisterStudentMessage.setText("Student " + studentName + "has been added");
+					//try {
+						lblRegisterStudentMessage.setForeground(Color.BLACK);
+						lblRegisterStudentMessage.setText("Student " + studentName + " has been added");
 						txtRegisterStudentAdress.setText(null);
 						txtRegisterStudentName.setText(null);
 						txtRegisterStudentSsn.setText(null);
 						
-					}
-					
+				//	}
+						//code to handle errors, causes error before btn is connected to a controller. There for catch and try is commanded out
+					/*
 					catch (SQLException sql) {
 						lblRegisterStudentMessage.setForeground(Color.RED);
 						lblRegisterStudentMessage.setText(SQLErrorMapping.getMessageForErrorCode(sql.getErrorCode(), "student"));
 					}
+*/
 				}
 			}
 		});
