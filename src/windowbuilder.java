@@ -14,6 +14,11 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 public class windowbuilder {
 
@@ -24,6 +29,12 @@ public class windowbuilder {
 	private JTextField txtAddCourseCode;
 	private JTextField txtAddCourseName;
 	private JTextField txtAddCourseCredit;
+	private JTextField txtRegisterStudentToCourseSsn;
+	private JTextField txtRegisterStudentToCourseSemester;
+	private JTable tableCoursesHeader;
+	private JTextField txtSearchCourseCode;
+	private JTextField txtSearchStudentSsn;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -177,10 +188,117 @@ public class windowbuilder {
 		register.add(txtAddCourseName);
 		register.add(separator);
 		
+		JLabel lblRegisterStudentTo = new JLabel("Register student to course");
+		lblRegisterStudentTo.setFont(new Font("Franklin Gothic Demi Cond", Font.PLAIN, 16));
+		lblRegisterStudentTo.setBounds(20, 238, 181, 29);
+		register.add(lblRegisterStudentTo);
+		
+		JLabel lblRegisterStudentToCourseSsn = new JLabel("Social Security nr:");
+		lblRegisterStudentToCourseSsn.setBounds(40, 272, 120, 14);
+		register.add(lblRegisterStudentToCourseSsn);
+		
+		JLabel lblRegisterStudentToCourseAsterix = new JLabel("*");
+		lblRegisterStudentToCourseAsterix.setForeground(Color.RED);
+		lblRegisterStudentToCourseAsterix.setBounds(20, 275, 14, 14);
+		register.add(lblRegisterStudentToCourseAsterix);
+		
+		JLabel lblRegisterStudentToCourseSemester = new JLabel("Semester:");
+		lblRegisterStudentToCourseSemester.setBounds(40, 297, 120, 14);
+		register.add(lblRegisterStudentToCourseSemester);
+		
+		JLabel lblRegisterStudentToCourseSemesterAsterix = new JLabel("*");
+		lblRegisterStudentToCourseSemesterAsterix.setForeground(Color.RED);
+		lblRegisterStudentToCourseSemesterAsterix.setBounds(20, 300, 14, 14);
+		register.add(lblRegisterStudentToCourseSemesterAsterix);
+		
+		JLabel lblRegisterStudentToCourseState = new JLabel("State:");
+		lblRegisterStudentToCourseState.setBounds(40, 324, 120, 14);
+		register.add(lblRegisterStudentToCourseState);
+		
+		JLabel lblRegisterStudentToCourseStateAterix = new JLabel("*");
+		lblRegisterStudentToCourseStateAterix.setForeground(Color.RED);
+		lblRegisterStudentToCourseStateAterix.setBounds(20, 327, 14, 14);
+		register.add(lblRegisterStudentToCourseStateAterix);
+		
+		JLabel lblRegisterStudentToCourseGrade = new JLabel("Grade:");
+		lblRegisterStudentToCourseGrade.setBounds(40, 353, 120, 14);
+		register.add(lblRegisterStudentToCourseGrade);
+		
+		JLabel lblRegisterStudentToCourseGradeAsterix = new JLabel("*");
+		lblRegisterStudentToCourseGradeAsterix.setForeground(Color.RED);
+		lblRegisterStudentToCourseGradeAsterix.setBounds(20, 356, 14, 14);
+		register.add(lblRegisterStudentToCourseGradeAsterix);
+		
+		txtRegisterStudentToCourseSsn = new JTextField();
+		txtRegisterStudentToCourseSsn.setColumns(10);
+		txtRegisterStudentToCourseSsn.setBounds(209, 268, 160, 20);
+		register.add(txtRegisterStudentToCourseSsn);
+		
+		txtRegisterStudentToCourseSemester = new JTextField();
+		txtRegisterStudentToCourseSemester.setColumns(10);
+		txtRegisterStudentToCourseSemester.setBounds(209, 293, 160, 20);
+		register.add(txtRegisterStudentToCourseSemester);
+		
+		JComboBox comboBoxRegisterStudentToCourseState = new JComboBox();
+		comboBoxRegisterStudentToCourseState.setBounds(209, 320, 160, 22);
+		register.add(comboBoxRegisterStudentToCourseState);
+		
+		JComboBox comboBoxRegisterStudentToCourseGrade = new JComboBox();
+		comboBoxRegisterStudentToCourseGrade.setBounds(209, 353, 160, 22);
+		register.add(comboBoxRegisterStudentToCourseGrade);
+		
+		JButton btnRegsterStudentToCourseGetCourses = new JButton("Get courses");
+		btnRegsterStudentToCourseGetCourses.setBounds(396, 267, 105, 25);
+		register.add(btnRegsterStudentToCourseGetCourses);
+		
+		JButton btnRegisterStudentToCourseRegister = new JButton("Register");
+		btnRegisterStudentToCourseRegister.setBounds(210, 388, 97, 25);
+		register.add(btnRegisterStudentToCourseRegister);
+		
+		JScrollPane scrollPaneCourses = new JScrollPane();
+		scrollPaneCourses.setBounds(519, 238, 502, 362);
+		register.add(scrollPaneCourses);
+		
+		tableCoursesHeader = new JTable();
+		tableCoursesHeader.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPaneCourses.setColumnHeaderView(tableCoursesHeader);
+		
 		JPanel search = new JPanel();
 		masterTabPane_1.addTab("Search", null, search, null);
+		search.setLayout(null);
 		
-		JPanel delete = new JPanel();
-		masterTabPane_1.addTab("Delete", null, delete, null);
+		JLabel lblSearchCourseCode = new JLabel("Course code:");
+		lblSearchCourseCode.setBounds(20, 15, 76, 16);
+		search.add(lblSearchCourseCode);
+		
+		JLabel lblSearchStudentSsn = new JLabel("Student ssn:");
+		lblSearchStudentSsn.setBounds(20, 45, 72, 16);
+		search.add(lblSearchStudentSsn);
+		
+		txtSearchCourseCode = new JTextField();
+		txtSearchCourseCode.setBounds(120, 12, 183, 22);
+		search.add(txtSearchCourseCode);
+		txtSearchCourseCode.setColumns(10);
+		
+		txtSearchStudentSsn = new JTextField();
+		txtSearchStudentSsn.setColumns(10);
+		txtSearchStudentSsn.setBounds(120, 42, 183, 22);
+		search.add(txtSearchStudentSsn);
+		
+		table = new JTable();
+		table.setBounds(364, 15, 833, 563);
+		search.add(table);
+		
+		JButton btnSearchShowResultsForCourse = new JButton("Show results for course");
+		btnSearchShowResultsForCourse.setBounds(120, 76, 183, 25);
+		search.add(btnSearchShowResultsForCourse);
+		
+		JButton btnSearchStudentInformation = new JButton("Student information");
+		btnSearchStudentInformation.setBounds(120, 103, 183, 25);
+		search.add(btnSearchStudentInformation);
+		
+		JButton btnSearchStudentInfoForCourse = new JButton("Student info for course");
+		btnSearchStudentInfoForCourse.setBounds(120, 130, 183, 25);
+		search.add(btnSearchStudentInfoForCourse);
 	}
 }
