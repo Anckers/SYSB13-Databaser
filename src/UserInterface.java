@@ -239,11 +239,24 @@ public class UserInterface{
 		txtRegisterStudentToCourseSemester.setBounds(209, 293, 160, 20);
 		register.add(txtRegisterStudentToCourseSemester);
 		
+		String cbNewCourse = "Starting course";
+		String cbCompletedCourse = "Finished course";
 		JComboBox comboBoxRegisterStudentToCourseState = new JComboBox();
+		comboBoxRegisterStudentToCourseState.addItem("");
+		comboBoxRegisterStudentToCourseState.addItem(cbNewCourse);
+		comboBoxRegisterStudentToCourseState.addItem(cbCompletedCourse);
 		comboBoxRegisterStudentToCourseState.setBounds(209, 320, 160, 22);
 		register.add(comboBoxRegisterStudentToCourseState);
 		
+
 		JComboBox comboBoxRegisterStudentToCourseGrade = new JComboBox();
+		comboBoxRegisterStudentToCourseGrade.addItem("");
+		comboBoxRegisterStudentToCourseGrade.addItem("F");
+		comboBoxRegisterStudentToCourseGrade.addItem("E");
+		comboBoxRegisterStudentToCourseGrade.addItem("D");
+		comboBoxRegisterStudentToCourseGrade.addItem("C");
+		comboBoxRegisterStudentToCourseGrade.addItem("B");
+		comboBoxRegisterStudentToCourseGrade.addItem("A");
 		comboBoxRegisterStudentToCourseGrade.setBounds(209, 353, 160, 22);
 		register.add(comboBoxRegisterStudentToCourseGrade);
 		
