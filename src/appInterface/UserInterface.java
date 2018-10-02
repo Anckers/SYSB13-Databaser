@@ -46,6 +46,14 @@ public class UserInterface{
 	private JTextField txtSearchStudentSsn;
 	private JTable table;
 	
+	private JTable tableStudents;
+	private JTable tableCourses;
+	private JTable tableSearchCourseInformation;
+	private JTable tableManageStudents;
+	private JTable tableDelStudentFromCourse;
+	private JTable tableShowFlow;
+	private JTable tableTask2;
+	
 	private DefaultTableModel dataModelStudents;
 	private DefaultTableModel dataModelCourses;
 	private DefaultTableModel dataModelDelStudentFromCourse;
@@ -53,6 +61,14 @@ public class UserInterface{
 	private DefaultTableModel dataModelCourseInformation;
 	private DefaultTableModel dataModelShowFlow;
 	private DefaultTableModel dataModelTask2;
+	
+	private JScrollPane scrollPaneManageStudents;
+	private JScrollPane scrollPaneSearchCourseInformation;
+	private JScrollPane scrollPaneStudents;
+	private JScrollPane scrollPaneCourses;
+	private JScrollPane scrollPaneDelStudentFromCourse;
+	private JScrollPane scrollPanelShowFlow;
+	private JScrollPane scrollPaneTask2;
 	/**
 	 * Launch the application.
 	 */
@@ -101,6 +117,11 @@ public class UserInterface{
 
 		String[] headersCourse = { "Course code", "Course name", "credit" };
 		dataModelCourses.setColumnIdentifiers(headersCourse);
+		
+		dataModelManageStudents = new DefaultTableModel();
+		tableManageStudents = new JTable(dataModelManageStudents);
+		tableManageStudents.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPaneManageStudents = new JScrollPane(tableManageStudents);
 		
 		JPanel register = new JPanel();
 		masterTabPane_1.addTab("Register", null, register, null);
@@ -375,6 +396,55 @@ public class UserInterface{
 		register.add(btnRegsterStudentToCourseGetCourses);
 		
 		JButton btnRegisterStudentToCourseRegister = new JButton("Register");
+		btnRegisterStudentToCourseRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblRegisterStudentToCourseMessage.setText("");
+				String ssn = txtRegisterStudentToCourseSsn.getText();
+				String semester = txtRegisterStudentToCourseSemester.getText();
+				String cbState = (String) comboBoxRegisterStudentToCourseState.getSelectedItem();
+				String cbGrade = (String) comboBoxRegisterStudentToCourseGrade.getSelectedItem();
+				lblRegisterStudentToCourseMessage.setForeground(Color.BLACK);
+				int selectedRow = tableManageStudents.getSelectedRow();
+
+				if (ssn.isEmpty() || semester.isEmpty() || selectedRow == -1) {
+					lblRegisterStudentToCourseMessage.setForeground(Color.RED);
+					lblRegisterStudentToCourseMessage.setText("you have to enter Social security number, Semester and Course");
+				} else {
+					try {
+						if ((selectedRow >= 0) && cbState.equals(cbNewCourse)) {
+							int row = tableManageStudents.getSelectedRow();
+							String cCodeValue = (String) tableManageStudents.getValueAt(row, 0);
+							//controllerTask1.addStudentStudies(pnr, cCodeValue, term.toUpperCase());
+							lblRegisterStudentToCourseMessage.setText("Studenten läser nu kursen");
+						}
+						if ((selectedRow >= 0) && cbState.equals(cbCompletedCourse)) {
+							if (cbGrade.isEmpty()) {
+								lblRegisterStudentToCourseMessage.setForeground(Color.RED);
+								lblRegisterStudentToCourseMessage.setText("Du måste välja betyg i listan");
+							} else {
+								int row = tableManageStudents.getSelectedRow();
+								String cCodeValue = (String) tableManageStudents.getValueAt(row, 0);
+								//controllerTask1.addStudentStudied(pnr, cCodeValue, term, cbGrade);
+								lblRegisterStudentToCourseMessage.setText("Studentens resultat registrerat");
+							}
+						}
+						if (cbState.equals("")) {
+							lblRegisterStudentToCourseMessage.setForeground(Color.RED);
+							lblRegisterStudentToCourseMessage.setText("Välj status");
+						}
+					/*} catch (SQLException sqlException) {
+						lblRegisterStudentToCourseMessage.setForeground(Color.RED);
+						lblRegisterStudentToCourseMessage.setText(
+								SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), "Student"));*/
+
+					} catch (RuntimeException rtException) {
+						lblRegisterStudentToCourseMessage.setForeground(Color.RED);
+						lblRegisterStudentToCourseMessage.setText("Credit on student exceeds 45");
+					}
+				}
+			}
+
+		});
 		btnRegisterStudentToCourseRegister.setBounds(210, 388, 97, 25);
 		register.add(btnRegisterStudentToCourseRegister);
 		
