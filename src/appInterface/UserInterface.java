@@ -1,3 +1,4 @@
+package appInterface;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,6 +12,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -21,8 +23,11 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import SQLError.SQLErrorMapping;
+import table.Course;
+
 
 
 public class UserInterface{
@@ -40,7 +45,14 @@ public class UserInterface{
 	private JTextField txtSearchCourseCode;
 	private JTextField txtSearchStudentSsn;
 	private JTable table;
-
+	
+	private DefaultTableModel dataModelStudents;
+	private DefaultTableModel dataModelCourses;
+	private DefaultTableModel dataModelDelStudentFromCourse;
+	private DefaultTableModel dataModelManageStudents;
+	private DefaultTableModel dataModelCourseInformation;
+	private DefaultTableModel dataModelShowFlow;
+	private DefaultTableModel dataModelTask2;
 	/**
 	 * Launch the application.
 	 */
@@ -78,6 +90,18 @@ public class UserInterface{
 		JTabbedPane masterTabPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		tab.addTab("Assignment 1", null, masterTabPane_1, "Working Title");
 		
+		// Delete student
+		dataModelStudents = new DefaultTableModel();
+
+		String[] headersStu = { "Personnr", "Namn", "Adress" };
+		dataModelStudents.setColumnIdentifiers(headersStu);
+
+				// Delete Course
+		dataModelCourses = new DefaultTableModel();
+
+		String[] headersCourse = { "Course code", "Course name", "credit" };
+		dataModelCourses.setColumnIdentifiers(headersCourse);
+		
 		JPanel register = new JPanel();
 		masterTabPane_1.addTab("Register", null, register, null);
 		
@@ -87,6 +111,10 @@ public class UserInterface{
 		
 		JLabel lblRegisterStudentSsn = new JLabel("Social Security nr:");
 		lblRegisterStudentSsn.setBounds(45, 45, 120, 14);
+		
+		JLabel lblRegisterStudentToCourseMessage = new JLabel("");
+		lblRegisterStudentToCourseMessage.setBounds(40, 440, 329, 20);
+		register.add(lblRegisterStudentToCourseMessage);
 		
 		txtRegisterStudentSsn = new JTextField();
 		txtRegisterStudentSsn.setBounds(177, 45, 160, 20);
@@ -130,7 +158,7 @@ public class UserInterface{
 				lblRegisterStudentMessage.setText(null);
 				if(studentSsn.isEmpty() || studentName.isEmpty() || studentAdress.isEmpty()) {
 					lblRegisterStudentMessage.setForeground(Color.RED);
-					lblRegisterStudentMessage.setText("All fields are requierd");	
+					lblRegisterStudentMessage.setText("All fields are required");	
 				} else {
 					//try {
 						lblRegisterStudentMessage.setForeground(Color.BLACK);
@@ -194,6 +222,33 @@ public class UserInterface{
 		register.add(lblAddCourseMessage);
 		
 		JButton btnRegisterCourse = new JButton("Register Course");
+		btnRegisterCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String courseCode = txtAddCourseCode.getText();
+				String courseName = txtAddCourseName.getText();
+				String courseCredit = txtAddCourseCredit.getText();
+				lblAddCourseMessage.setText(null);
+				if(courseCode.isEmpty() || courseCredit.isEmpty() || courseName.isEmpty()) {
+					lblAddCourseMessage.setText("All fields are required");
+				} else {
+					//try {
+						lblAddCourseMessage.setForeground(Color.BLACK);
+						lblAddCourseMessage.setText("Course " + courseName + " has been added");
+						txtAddCourseCode.setText(null);
+						txtAddCourseCredit.setText(null);
+						txtAddCourseName.setText(null);
+				/*	} catch (SQLException sqlException){
+						lblAddCourseMessage.setForeground(Color.RED);
+						lblAddCourseMessage.setText(SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), "add course")
+					} catch (NumberFormatException nrE) {
+						lblAddCourseMessage.setForeground(Color.RED);
+						lblAddCourseMessage.setText("Credit can only be entered in numbers and decimals '.'	");
+					}
+					*/
+				}
+				
+			}
+		});
 		btnRegisterCourse.setBounds(580, 127, 130, 30);
 		
 		JSeparator separator = new JSeparator();
@@ -299,6 +354,23 @@ public class UserInterface{
 		register.add(comboBoxRegisterStudentToCourseGrade);
 		
 		JButton btnRegsterStudentToCourseGetCourses = new JButton("Get courses");
+		btnRegsterStudentToCourseGetCourses.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dataModelManageStudents.setRowCount(0);
+				lblRegisterStudentToCourseMessage.setText("");
+				lblRegisterStudentToCourseMessage.setForeground(Color.BLACK);
+				//try {
+					ArrayList<Course> courses = new ArrayList<Course>();
+					//courses = controllerTask1.getAllCourses();
+					for (Course tmp : courses) {
+						dataModelManageStudents.addRow(new Object[] { tmp.getCode(), tmp.getName(), tmp.getCredit() });
+					}
+				/*} catch (SQLException sq) {
+					lblRegisterStudentToCourseMessage.setForeground(Color.RED);
+					lblRegisterStudentToCourseMessage.setText(sq.getMessage());
+				}*/
+			}
+		});
 		btnRegsterStudentToCourseGetCourses.setBounds(396, 267, 105, 25);
 		register.add(btnRegsterStudentToCourseGetCourses);
 		
@@ -313,6 +385,8 @@ public class UserInterface{
 		tableCoursesHeader = new JTable();
 		tableCoursesHeader.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneCourses.setColumnHeaderView(tableCoursesHeader);
+		
+
 	
 		
 		JPanel search = new JPanel();

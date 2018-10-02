@@ -9,7 +9,7 @@ public class SQLErrorMapping {
 		if (errorCode == 2627) {
 			code = prefix + " is already registered";
 		}
-		//Om personen/kursen ej finns och man försöker lägga till den i Studied/Studies
+		//course error handling
 		if(errorCode == 547) {
 			if(prefix == "add course") {
 				code = "Course is only allowed a maximum of 45 credits";
