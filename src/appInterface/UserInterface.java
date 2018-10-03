@@ -40,7 +40,7 @@ public class UserInterface{
 	private JTextField txtAddCourseName;
 	private JTextField txtAddCourseCredit;
 	private JTextField txtRegisterStudentToCourseSsn;
-	private JTextField txtRegisterStudentToCourseSemester;
+	private JTextField txtRegisterStudentToCourseCode;
 	private JTable tableCoursesHeader;
 	private JTextField txtSearchCourseCode;
 	private JTextField txtSearchStudentSsn;
@@ -321,9 +321,9 @@ public class UserInterface{
 		lblRegisterStudentToCourseAsterix.setBounds(20, 275, 14, 14);
 		register.add(lblRegisterStudentToCourseAsterix);
 		
-		JLabel lblRegisterStudentToCourseSemester = new JLabel("Semester:");
-		lblRegisterStudentToCourseSemester.setBounds(40, 297, 120, 14);
-		register.add(lblRegisterStudentToCourseSemester);
+		JLabel lblRegisterStudentToCourseCode = new JLabel("Course code:");
+		lblRegisterStudentToCourseCode.setBounds(40, 297, 120, 14);
+		register.add(lblRegisterStudentToCourseCode);
 		
 		JLabel lblRegisterStudentToCourseSemesterAsterix = new JLabel("*");
 		lblRegisterStudentToCourseSemesterAsterix.setForeground(Color.RED);
@@ -348,10 +348,10 @@ public class UserInterface{
 		txtRegisterStudentToCourseSsn.setBounds(209, 268, 160, 20);
 		register.add(txtRegisterStudentToCourseSsn);
 		
-		txtRegisterStudentToCourseSemester = new JTextField();
-		txtRegisterStudentToCourseSemester.setColumns(10);
-		txtRegisterStudentToCourseSemester.setBounds(209, 293, 160, 20);
-		register.add(txtRegisterStudentToCourseSemester);
+		txtRegisterStudentToCourseCode = new JTextField();
+		txtRegisterStudentToCourseCode.setColumns(10);
+		txtRegisterStudentToCourseCode.setBounds(209, 293, 160, 20);
+		register.add(txtRegisterStudentToCourseCode);
 		
 		String cbNewCourse = "Starting course";
 		String cbCompletedCourse = "Finished course";
@@ -374,6 +374,8 @@ public class UserInterface{
 		comboBoxRegisterStudentToCourseGrade.setBounds(209, 353, 160, 22);
 		register.add(comboBoxRegisterStudentToCourseGrade);
 		
+		//commanded out since it was an attempt at a overcomplicated setup
+		/*
 		JButton btnRegsterStudentToCourseGetCourses = new JButton("Get courses");
 		btnRegsterStudentToCourseGetCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -389,18 +391,19 @@ public class UserInterface{
 				/*} catch (SQLException sq) {
 					lblRegisterStudentToCourseMessage.setForeground(Color.RED);
 					lblRegisterStudentToCourseMessage.setText(sq.getMessage());
-				}*/
+				}*/ /*
 			}
 		});
 		btnRegsterStudentToCourseGetCourses.setBounds(396, 267, 105, 25);
 		register.add(btnRegsterStudentToCourseGetCourses);
+		*/
 		
 		JButton btnRegisterStudentToCourseRegister = new JButton("Register");
 		btnRegisterStudentToCourseRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblRegisterStudentToCourseMessage.setText("");
 				String ssn = txtRegisterStudentToCourseSsn.getText();
-				String semester = txtRegisterStudentToCourseSemester.getText();
+				String semester = txtRegisterStudentToCourseCode.getText();
 				String cbState = (String) comboBoxRegisterStudentToCourseState.getSelectedItem();
 				String cbGrade = (String) comboBoxRegisterStudentToCourseGrade.getSelectedItem();
 				lblRegisterStudentToCourseMessage.setForeground(Color.BLACK);
@@ -448,14 +451,19 @@ public class UserInterface{
 		btnRegisterStudentToCourseRegister.setBounds(210, 388, 97, 25);
 		register.add(btnRegisterStudentToCourseRegister);
 		
+		//commanded out since it was an attempt at a overcomplicated setup
+		/*
 		JScrollPane scrollPaneCourses = new JScrollPane();
 		scrollPaneCourses.setBounds(519, 238, 502, 362);
 		register.add(scrollPaneCourses);
-		
+		*/
+
+		//commanded out since it was an attempt at a overcomplicated setup
+		/*
 		tableCoursesHeader = new JTable();
 		tableCoursesHeader.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneCourses.setColumnHeaderView(tableCoursesHeader);
-		
+		*/
 
 	
 		
