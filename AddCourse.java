@@ -3,16 +3,14 @@ package kk;
 public class AddCourse {
 		private String courseID;
 		private String courseName;
-		private double credit;
 		
 		public AddCourse() {
 			
 		}
 		
-		public AddCourse(String courseID, String courseName, double credit){
+		public AddCourse(String courseID, String courseName){
 			this.courseID = courseID;
 			this.courseName = courseName;
-			this.credit=credit;
 		}
 
 		public String getCourseID() {
@@ -29,14 +27,6 @@ public class AddCourse {
 
 		public void setCourseName(String courseName) {
 			this.courseName = courseName;
-		}
-
-		public double getCredit() {
-			return credit;
-		}
-
-		public void setCredit(float credit) {
-			this.credit = credit;
 		}
 		
 	}

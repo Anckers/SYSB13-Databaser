@@ -4,11 +4,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-	
+import java.util.ArrayList;
+
+//import databaseConnection.DBConnection;
+//import modelTask1.Course;
+//import modelTask1.Student;
+//import modelTask1.Studied;
+
 public class DAL {
 	
 	private ResultSet rs;
-			
+	private Connection connection = null;
+	private PreparedStatement pStmt = null;
+	
+		// Startar connection, kˆr preparedStatement sedan h‰mtar ResultSet
+		private ResultSet runExecuteQuery(String sqlString) throws SQLException {
+		connection = ConnectionFac.startConnection();
+		pStmt = connection.prepareStatement(sqlString);
+		ResultSet rs = pStmt.executeQuery();
+		return rs;
+	}
+
+		// Startar connecntion, kˆr preparedStatement sedan uppdaterar databasen
+		private void runExecuteUpdate(String sqlString) throws SQLException {
+		connection = ConnectionFac.startConnection();
+		pStmt = connection.prepareStatement(sqlString);
+		pStmt.executeUpdate();
+	}
+	
+	
+			// ADD
 			public void addStudent(AddStudent student) throws SQLException {
 				ConnectionFac connect = new ConnectionFac();
 				Connection connection = connect.startConnection();
@@ -30,10 +55,9 @@ public class DAL {
 				Connection connection = connect.startConnection();
 			
 				try{
-					PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Course (courseID, courseName, credit) VALUES (?,?,?)");
+					PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Course (courseID, courseName) VALUES (?,?)");
 					pstmt.setString(1, course.getCourseID());
 					pstmt.setString(2, course.getCourseName());
-					pstmt.setDouble(3, course.getCredit());
 					pstmt.executeUpdate();
 				}catch(Exception ex){
 					ex.printStackTrace();
@@ -70,44 +94,36 @@ public class DAL {
 				}
 				connection.close();
 			}
-			public AddStudent findStudent(String queryA) throws SQLException{
-
-				rs = null;
-				ConnectionFac connect = new ConnectionFac();
-				Connection connection = connect.startConnection();
-				
-				AddStudent s = new AddStudent();
-				try{
-					PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Student WHERE studentSSN=?");
-					pstmt.setString(1, queryA);
-					rs = pstmt.executeQuery();
-					if (rs.next()){
-						s = new AddStudent(rs.getString("studentSSN"), rs.getString("studentName"), rs.getString("studentAdress"));
-					}
-					pstmt.close();
-				}catch(Exception ex){
-					ex.printStackTrace();
+			// FIND
+			public AddStudent findStudent(String studentSSN) throws SQLException {
+				AddStudent s;
+				String sqlString = "SELECT * FROM Student WHERE studentSSN = '" + studentSSN + "'";
+				ResultSet rs = runExecuteQuery(sqlString);
+				if (rs.next()) {
+					studentSSN = rs.getString(1);
+					String studentName = rs.getString(2);
+					String studentAddress = rs.getString(3);
+					s = new AddStudent(studentSSN, studentName, studentAddress);
+					connection.close();
+					return s;
 				}
-				return s;
+				return null;
 			}
-			public AddCourse findCourse(String queryA) throws SQLException {
-				
-				rs = null;
-				ConnectionFac connect = new ConnectionFac();
-				Connection connection = connect.startConnection();
-				
-				AddCourse c = new AddCourse();
-				try{
-					PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM Course WHERE courseID=?");
-					pstmt.setString(1, queryA);
-					rs = pstmt.executeQuery();
-					if (rs.next()){
-						c = new AddCourse(rs.getString("courseID"),rs.getString("courseName"),rs.getDouble("credit"));
-					}
-				}catch(Exception ex){
-					ex.printStackTrace();
+			public AddCourse findCourse(String courseID) throws SQLException {
+				String sqlString = "SELECT * from Course WHERE courseID = '" + courseID + "';";
+				ResultSet rs = runExecuteQuery(sqlString);
+				if (rs.next()) {
+					courseID = rs.getString(1);
+					String courseName = rs.getString(2);
+					AddCourse c = new AddCourse(courseID, courseName);
+					pStmt.close();
+					connection.close();
+					return c;
 				}
-				return c;
+				pStmt.close();
+				connection.close();
+				return null;
+
 			}
 			public Studies findCurrentStudent(String studentSSN, String courseID) throws SQLException {
 				
@@ -129,76 +145,37 @@ public class DAL {
 					}
 					return cs;
 			}
-			public HasStudied findOldStudent(String studentSSN, String courseID) throws SQLException{
-
-				ConnectionFac connect = new ConnectionFac();
-				Connection connection = connect.startConnection();
-				rs = null;
-				HasStudied hs = new HasStudied();
-				
-				try{
-					PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM HasStudied WHERE studentSSN=? and courseID=?");
-					pstmt.setString(1, hs.getStudentSSN());
-					pstmt.setString(2, hs.getCourseID());
-					rs = pstmt.executeQuery();
-					if (rs.next()){
-						hs = new HasStudied(rs.getString("studentSSN"), rs.getString("courseID"), rs.getString("grade"));	
-					}
-				} catch(Exception ex){
-					ex.printStackTrace();
+			public HasStudied findResultFromCourse(String studentSSN, String courseID) throws SQLException {
+				HasStudied hs = null;
+				String sqlString = "SELECT * FROM Studied WHERE courseID = '" + courseID + "' and studentSSN = '" + studentSSN + "';";
+				ResultSet rs = runExecuteQuery(sqlString);
+				if (rs.next()) {
+					studentSSN = rs.getString(1);
+					courseID = rs.getString(2);
+					String grade = rs.getString(3);
+					hs = new HasStudied(studentSSN, courseID, grade);
 				}
+				connection.close();
 				return hs;
-				}
+			}
 			//Find Lists
 
-			public HasStudied findGradesHasStudied(String courseID) throws SQLException {
-				
-				ConnectionFac connect = new ConnectionFac();
-				Connection connection = connect.startConnection();
-				rs = null;
-				HasStudied stl = new HasStudied();
-				
-				try{
-					PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM HasStudied WHERE courseID=?");
-					pstmt.setString(1, stl.getCourseID());
-					rs = pstmt.executeQuery();
-					if (rs.next()){
-						stl = new HasStudied(rs.getString("studentSSN"), rs.getString("courseID"), rs.getString("grade") );
-							}
-						}catch(Exception ex){
-							ex.printStackTrace();
-						}
-							return stl;
-					}
-			// DELETE
-			public void deleteStudent(AddStudent studentSSN) throws SQLException {
-				
-				ConnectionFac connect = new ConnectionFac();
-				Connection connection = connect.startConnection();
-				AddStudent a = studentSSN;
-				
-				try {
-				PreparedStatement pstmt = connection.prepareStatement("DELETE FROM Student WHERE studentSSN =?");
-				pstmt.setString(1, a.getStudentSSN());
-				pstmt.executeUpdate();
-				pstmt.close();
-			}catch(Exception ed) {
-				ed.printStackTrace();
-			}
-			}
-			public void deleteCourse(AddCourse courseID) {
-				
-				ConnectionFac connect = new ConnectionFac();
-				Connection connection = connect.startConnection();
-				AddCourse c = courseID;
-				
-				try {
-					PreparedStatement pstmt = connection.prepareStatement("DELETE FROM Course WHERE courseID =?");
-					pstmt.setString(1, c.getCourseID());
-					pstmt.executeUpdate();
-					pstmt.close();
-				}catch(Exception ed) {
-					ed.printStackTrace();
+			public ArrayList<HasStudied> getAllStudentsResultsFromCourse(String courseID) throws SQLException {
+				ArrayList<HasStudied> studentGrades = new ArrayList<HasStudied>();
+				String sqlString = "SELECT * FROM Studied WHERE courseID = '" + courseID + "'";
+				ResultSet rs = runExecuteQuery(sqlString);
+				while (rs.next()) {
+					String studentSSN = rs.getString(1);
+					courseID = rs.getString(2);
+					String grade = rs.getString(3);
+					HasStudied s = new HasStudied(studentSSN, courseID, grade);
+					studentGrades.add(s);
 				}
+				connection.close();
+				return studentGrades;
 			}
+			// DELETE
+
+				
+
 }

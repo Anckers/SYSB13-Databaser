@@ -8,7 +8,7 @@ public class ConnectionFac {
 	public static String userName = "app";
 	public static String password = "app";
 	
-	public Connection startConnection() {
+	public static Connection startConnection() {
 		
 		try {
 			DriverManager.registerDriver(new com.microsoft.sqlserver.jdbc.SQLServerDriver());
