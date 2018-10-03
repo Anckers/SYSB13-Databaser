@@ -415,17 +415,17 @@ public class UserInterface{
 							int row = tableManageStudents.getSelectedRow();
 							String cCodeValue = (String) tableManageStudents.getValueAt(row, 0);
 							//controllerTask1.addStudentStudies(pnr, cCodeValue, term.toUpperCase());
-							lblRegisterStudentToCourseMessage.setText("Studenten läser nu kursen");
+							lblRegisterStudentToCourseMessage.setText("Student is now registered on course");
 						}
 						if ((selectedRow >= 0) && cbState.equals(cbCompletedCourse)) {
 							if (cbGrade.isEmpty()) {
 								lblRegisterStudentToCourseMessage.setForeground(Color.RED);
-								lblRegisterStudentToCourseMessage.setText("Du måste välja betyg i listan");
+								lblRegisterStudentToCourseMessage.setText("grade must be chosen");
 							} else {
 								int row = tableManageStudents.getSelectedRow();
 								String cCodeValue = (String) tableManageStudents.getValueAt(row, 0);
 								//controllerTask1.addStudentStudied(pnr, cCodeValue, term, cbGrade);
-								lblRegisterStudentToCourseMessage.setText("Studentens resultat registrerat");
+								lblRegisterStudentToCourseMessage.setText("Student grade is now registered");
 							}
 						}
 						if (cbState.equals("")) {
