@@ -510,7 +510,7 @@ public class UserInterface{
 						lblSearchMessage.setForeground(Color.RED);
 						lblSearchMessage.setText("Course code must be entered to fetch information");
 					} else {
-						String [] headerCourses = {"SSN", "Name", "Semester", "Course name", "Grade"};
+						String [] headerCourses = {"SSN", "Name", "Course name", "Grade"};
 						dataModelCourseInformation.setColumnIdentifiers(headerCourses);
 						ArrayList<Studied> allResults = controller.getAllStudentsResultsFromCourse(courseCode);
 						if (allResults.isEmpty()) {
