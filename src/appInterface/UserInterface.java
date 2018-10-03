@@ -485,16 +485,85 @@ public class UserInterface{
 		table.setBounds(364, 15, 833, 563);
 		search.add(table);
 		
+		JLabel lblSearchMessage = new JLabel("");
+		lblSearchMessage.setBounds(20, 170, 283, 20);
+		search.add(lblSearchMessage);
+		
 		JButton btnSearchShowResultsForCourse = new JButton("Show results for course");
+		btnSearchShowResultsForCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				String courseCode = txtSearchCourseCode.getText();
+				dataModelCourseInformation.setRowCount(0);
+				lblSearchMessage.setText(null);
+				lblSearchMessage.setForeground(Color.BLACK);
+				try {
+					if (courseCode.isEmpty()) {
+						lblSearchMessage.setForeground(Color.RED);
+						lblSearchMessage.setText("Course code must be entered to fetch information");
+					} else {
+						String [] headerCourses = {"SSN", "Name", "Semester", "Course name", "Grade"};
+						dataModelCourseInformation.setColumnIdentifiers(headerCourses);
+						ArrayList<Studied> allResults = controller.getAllStudentsResultsFromCourse(courseCode);
+						if (allResults.isEmpty()) {
+							lblSearchMessage.setText("No students have taken the course");
+							lblSearchMessage.setForeground(Color.RED);
+						} else {
+							for (Studied s : allResults) {
+								String studentName = controller.getStudent(s.getSsn()).getName();
+								String courseName = controller.getCourse(s.getcourseCode()).getName();
+								dataModelCourseInformation.addRow(new Object[] { s.getSsn(), studentName,s.getSemester(), courseName, s.getGrade() });
+							}
+						}
+					}
+				}catch (SQLException sqlException) {
+					lblSearchMessage.setForeground(Color.RED);
+					lblSearchMessage.setText(SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), ""));
+				}
+*/
+			}
+		});
 		btnSearchShowResultsForCourse.setBounds(120, 76, 183, 25);
 		search.add(btnSearchShowResultsForCourse);
 		
+		
+		// Is this button needed or did i add a redundant button?
 		JButton btnSearchStudentInformation = new JButton("Student information");
+		
 		btnSearchStudentInformation.setBounds(120, 103, 183, 25);
 		search.add(btnSearchStudentInformation);
 		
 		JButton btnSearchStudentInfoForCourse = new JButton("Student info for course");
+		btnSearchStudentInformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				String ssn = txtSearchStudentSsn.getText();
+				dataModelCourseInformation.setRowCount(0);
+				lblSearchMessage.setText(null);
+				lblSearchMessage.setForeground(Color.BLACK);
+				try {
+					if (ssn.isEmpty()){
+						lblSearchMessage.setForeground(Color.RED);
+						lblSearchMessage.setText("SSN must be entered to fetch information");
+					} else {
+						ArrayList<Studied> studentResults = controller.getAllStudentGrades(ssn);
+						if (studentResults.isEmpty()) {
+							lblSearchMessage.setText("The student does not have any final grade in a course");
+						} else {
+							for (Studied s : studentResults) {
+								String studentName = controller.getStudent(s.getPnr()).getName();
+								String courseName = controller.getCourse(s.getcCode()).getName();
+								dataModelCourseInformation.addRow(new Object[] { s.getSsn(), studentName, s.getSemester(), courseName, s.getGrade() });
+							}
+						}
+					}
+				}
+				*/
+			}
+		});
 		btnSearchStudentInfoForCourse.setBounds(120, 130, 183, 25);
 		search.add(btnSearchStudentInfoForCourse);
+		
+		
 	}
 }
