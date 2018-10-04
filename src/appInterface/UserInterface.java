@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import SQLError.SQLErrorMapping;
 import table.Course;
-
+import baseline.Controller;
+import baseline.HasStudied;;
 
 
 public class UserInterface{
@@ -173,29 +174,31 @@ public class UserInterface{
 		JButton btnRegisterStudent = new JButton("Register student");
 		btnRegisterStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String studentSsn = txtRegisterStudentSsn.getText();
+				String studentSSN = txtRegisterStudentSsn.getText();
 				String studentName = txtRegisterStudentName.getText();
 				String studentAdress = txtRegisterStudentAdress.getText();
 				lblRegisterStudentMessage.setText(null);
-				if(studentSsn.isEmpty() || studentName.isEmpty() || studentAdress.isEmpty()) {
+				
+				if(studentSSN.isEmpty() || studentName.isEmpty() || studentAdress.isEmpty()) {
 					lblRegisterStudentMessage.setForeground(Color.RED);
 					lblRegisterStudentMessage.setText("All fields are required");	
 				} else {
-					//try {
+					try {
+						Controller.addStudentDal(studentSSN.toUpperCase(), studentName, studentAdress);
 						lblRegisterStudentMessage.setForeground(Color.BLACK);
 						lblRegisterStudentMessage.setText("Student " + studentName + " has been added");
 						txtRegisterStudentAdress.setText(null);
 						txtRegisterStudentName.setText(null);
 						txtRegisterStudentSsn.setText(null);
 						
-				//	}
+					}
 						//code to handle errors, causes error before btn is connected to a controller. There for catch and try is commanded out
-					/*
+					
 					catch (SQLException sql) {
 						lblRegisterStudentMessage.setForeground(Color.RED);
 						lblRegisterStudentMessage.setText(SQLErrorMapping.getMessageForErrorCode(sql.getErrorCode(), "student"));
 					}
-*/
+
 				}
 			}
 		});
@@ -245,27 +248,30 @@ public class UserInterface{
 		JButton btnRegisterCourse = new JButton("Register Course");
 		btnRegisterCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Isn't courseCredit needed for assignment 1?
 				String courseCode = txtAddCourseCode.getText();
 				String courseName = txtAddCourseName.getText();
-				String courseCredit = txtAddCourseCredit.getText();
+				//String courseCredit = txtAddCourseCredit.getText();
 				lblAddCourseMessage.setText(null);
-				if(courseCode.isEmpty() || courseCredit.isEmpty() || courseName.isEmpty()) {
+				
+				if(courseCode.isEmpty() || /*courseCredit.isEmpty() ||*/ courseName.isEmpty()) {
 					lblAddCourseMessage.setText("All fields are required");
 				} else {
-					//try {
+					try {
+						Controller.addCourseDal(courseCode.toUpperCase(), courseName);
 						lblAddCourseMessage.setForeground(Color.BLACK);
 						lblAddCourseMessage.setText("Course " + courseName + " has been added");
 						txtAddCourseCode.setText(null);
 						txtAddCourseCredit.setText(null);
 						txtAddCourseName.setText(null);
-				/*	} catch (SQLException sqlException){
+					} catch (SQLException sqlException){
 						lblAddCourseMessage.setForeground(Color.RED);
-						lblAddCourseMessage.setText(SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), "add course")
+						lblAddCourseMessage.setText(SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), "add course"));
 					} catch (NumberFormatException nrE) {
 						lblAddCourseMessage.setForeground(Color.RED);
 						lblAddCourseMessage.setText("Credit can only be entered in numbers and decimals '.'	");
 					}
-					*/
+					
 				}
 				
 			}
@@ -374,6 +380,7 @@ public class UserInterface{
 		comboBoxRegisterStudentToCourseGrade.setBounds(209, 353, 160, 22);
 		register.add(comboBoxRegisterStudentToCourseGrade);
 		
+		/*
 		JButton btnRegsterStudentToCourseGetCourses = new JButton("Get courses");
 		btnRegsterStudentToCourseGetCourses.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -389,58 +396,59 @@ public class UserInterface{
 				/*} catch (SQLException sq) {
 					lblRegisterStudentToCourseMessage.setForeground(Color.RED);
 					lblRegisterStudentToCourseMessage.setText(sq.getMessage());
-				}*/
+				}*/ /*
 			}
 		});
 		btnRegsterStudentToCourseGetCourses.setBounds(396, 267, 105, 25);
 		register.add(btnRegsterStudentToCourseGetCourses);
+		*/
 		
 		JButton btnRegisterStudentToCourseRegister = new JButton("Register");
 		btnRegisterStudentToCourseRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblRegisterStudentToCourseMessage.setText("");
 				String ssn = txtRegisterStudentToCourseSsn.getText();
-				String semester = txtRegisterStudentToCourseSemester.getText();
+				String courseCode = txtRegisterStudentToCourseSemester.getText();
 				String cbState = (String) comboBoxRegisterStudentToCourseState.getSelectedItem();
 				String cbGrade = (String) comboBoxRegisterStudentToCourseGrade.getSelectedItem();
 				lblRegisterStudentToCourseMessage.setForeground(Color.BLACK);
 				int selectedRow = tableManageStudents.getSelectedRow();
 
-				if (ssn.isEmpty() || semester.isEmpty() || selectedRow == -1) {
+				if (ssn.isEmpty() || courseCode.isEmpty() || selectedRow == -1) {
 					lblRegisterStudentToCourseMessage.setForeground(Color.RED);
-					lblRegisterStudentToCourseMessage.setText("you have to enter Social security number, Semester and Course");
+					lblRegisterStudentToCourseMessage.setText("you have to enter Social security number and course code");
 				} else {
 					try {
 						if ((selectedRow >= 0) && cbState.equals(cbNewCourse)) {
 							int row = tableManageStudents.getSelectedRow();
-							String cCodeValue = (String) tableManageStudents.getValueAt(row, 0);
-							//controllerTask1.addStudentStudies(pnr, cCodeValue, term.toUpperCase());
-							lblRegisterStudentToCourseMessage.setText("Studenten läser nu kursen");
+							//String courseCodeValue = (String) tableManageStudents.getValueAt(row, 0);
+							Controller.registerNewStudent(ssn, courseCode.toUpperCase());
+							lblRegisterStudentToCourseMessage.setText("Student is now registered on the course");
 						}
 						if ((selectedRow >= 0) && cbState.equals(cbCompletedCourse)) {
 							if (cbGrade.isEmpty()) {
 								lblRegisterStudentToCourseMessage.setForeground(Color.RED);
-								lblRegisterStudentToCourseMessage.setText("Du måste välja betyg i listan");
+								lblRegisterStudentToCourseMessage.setText("Grade must be selected");
 							} else {
 								int row = tableManageStudents.getSelectedRow();
 								String cCodeValue = (String) tableManageStudents.getValueAt(row, 0);
-								//controllerTask1.addStudentStudied(pnr, cCodeValue, term, cbGrade);
-								lblRegisterStudentToCourseMessage.setText("Studentens resultat registrerat");
+								Controller.registerOldStudentDal(ssn, courseCode, cbGrade);
+								lblRegisterStudentToCourseMessage.setText("Final grade registered");
 							}
 						}
 						if (cbState.equals("")) {
 							lblRegisterStudentToCourseMessage.setForeground(Color.RED);
 							lblRegisterStudentToCourseMessage.setText("Välj status");
 						}
-					/*} catch (SQLException sqlException) {
+					} catch (SQLException sqlException) {
 						lblRegisterStudentToCourseMessage.setForeground(Color.RED);
 						lblRegisterStudentToCourseMessage.setText(
-								SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), "Student"));*/
+								SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), "Student"));
 
 					} catch (RuntimeException rtException) {
 						lblRegisterStudentToCourseMessage.setForeground(Color.RED);
 						lblRegisterStudentToCourseMessage.setText("Credit on student exceeds 45");
-					}
+					} 
 				}
 			}
 
@@ -448,6 +456,7 @@ public class UserInterface{
 		btnRegisterStudentToCourseRegister.setBounds(210, 388, 97, 25);
 		register.add(btnRegisterStudentToCourseRegister);
 		
+		/*
 		JScrollPane scrollPaneCourses = new JScrollPane();
 		scrollPaneCourses.setBounds(519, 238, 502, 362);
 		register.add(scrollPaneCourses);
@@ -455,7 +464,7 @@ public class UserInterface{
 		tableCoursesHeader = new JTable();
 		tableCoursesHeader.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPaneCourses.setColumnHeaderView(tableCoursesHeader);
-		
+		*/
 
 	
 		
@@ -485,15 +494,83 @@ public class UserInterface{
 		table.setBounds(364, 15, 833, 563);
 		search.add(table);
 		
+		JLabel lblSearchMessage = new JLabel("");
+		lblSearchMessage.setBounds(20, 170, 283, 20);
+		search.add(lblSearchMessage);
+		
 		JButton btnSearchShowResultsForCourse = new JButton("Show results for course");
+		btnSearchShowResultsForCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				String courseCode = txtSearchCourseCode.getText();
+				dataModelCourseInformation.setRowCount(0);
+				lblSearchMessage.setText(null);
+				lblSearchMessage.setForeground(Color.BLACK);
+				try {
+					if (courseCode.isEmpty()) {
+						lblSearchMessage.setForeground(Color.RED);
+						lblSearchMessage.setText("Course code must be entered to fetch information");
+					} else {
+						String [] headerCourses = {"SSN", "Name", "Semester", "Course name", "Grade"};
+						dataModelCourseInformation.setColumnIdentifiers(headerCourses);
+						ArrayList<HasStudied> allResults = Controller.getAllStudentsResultsFromCourse(courseCode);
+						if (allResults.isEmpty()) {
+							lblSearchMessage.setText("No students have taken the course");
+							lblSearchMessage.setForeground(Color.RED);
+						} else {
+							for (HasStudied s : allResults) {
+								String studentName = Controller.findStudentDal(s.getStudentSSN()).getName();
+								String courseName = Controller.findCourseDal(s.getCourseID()).getCourseName();
+								dataModelCourseInformation.addRow(new Object[] { s.getStudentSSN(), studentName, courseName, s.getGrade() });
+							}
+						}
+					}
+				}catch (SQLException sqlException) {
+					lblSearchMessage.setForeground(Color.RED);
+					lblSearchMessage.setText(SQLErrorMapping.getMessageForErrorCode(sqlException.getErrorCode(), ""));
+				}
+
+			}
+		});
 		btnSearchShowResultsForCourse.setBounds(120, 76, 183, 25);
 		search.add(btnSearchShowResultsForCourse);
 		
 		JButton btnSearchStudentInformation = new JButton("Student information");
+		btnSearchStudentInformation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnSearchStudentInformation.setBounds(120, 103, 183, 25);
 		search.add(btnSearchStudentInformation);
 		
 		JButton btnSearchStudentInfoForCourse = new JButton("Student info for course");
+		btnSearchStudentInfoForCourse.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*
+				String ssn = txtSearchStudentSsn.getText();
+				dataModelCourseInformation.setRowCount(0);
+				lblSearchMessage.setText(null);
+				lblSearchMessage.setForeground(Color.BLACK);
+				try {
+					if (ssn.isEmpty()){
+						lblSearchMessage.setForeground(Color.RED);
+						lblSearchMessage.setText("SSN must be entered to fetch information");
+					} else {
+						ArrayList<Studied> studentResults = controller.getAllStudentGrades(ssn);
+						if (studentResults.isEmpty()) {
+							lblSearchMessage.setText("The student does not have any final grade in a course");
+						} else {
+							for (Studied s : studentResults) {
+								String studentName = controller.getStudent(s.getPnr()).getName();
+								String courseName = controller.getCourse(s.getcCode()).getName();
+								dataModelCourseInformation.addRow(new Object[] { s.getSsn(), studentName, s.getSemester(), courseName, s.getGrade() });
+							}
+						}
+					}
+				}
+				*/
+			}
+		});
 		btnSearchStudentInfoForCourse.setBounds(120, 130, 183, 25);
 		search.add(btnSearchStudentInfoForCourse);
 	}
