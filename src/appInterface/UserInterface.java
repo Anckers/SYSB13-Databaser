@@ -255,6 +255,7 @@ public class UserInterface{
 				lblAddCourseMessage.setText(null);
 				
 				if(courseCode.isEmpty() || /*courseCredit.isEmpty() ||*/ courseName.isEmpty()) {
+					lblAddCourseMessage.setForeground(Color.RED);
 					lblAddCourseMessage.setText("All fields are required");
 				} else {
 					try {
@@ -546,7 +547,7 @@ public class UserInterface{
 		JButton btnSearchStudentInfoForCourse = new JButton("Student info for course");
 		btnSearchStudentInfoForCourse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
+				
 				String ssn = txtSearchStudentSsn.getText();
 				dataModelCourseInformation.setRowCount(0);
 				lblSearchMessage.setText(null);
@@ -556,7 +557,7 @@ public class UserInterface{
 						lblSearchMessage.setForeground(Color.RED);
 						lblSearchMessage.setText("SSN must be entered to fetch information");
 					} else {
-						ArrayList<Studied> studentResults = controller.getAllStudentGrades(ssn);
+						ArrayList<HasStudied> studentResults = Controller.findResultFromCourse(ssn);
 						if (studentResults.isEmpty()) {
 							lblSearchMessage.setText("The student does not have any final grade in a course");
 						} else {
@@ -568,7 +569,7 @@ public class UserInterface{
 						}
 					}
 				}
-				*/
+				
 			}
 		});
 		btnSearchStudentInfoForCourse.setBounds(120, 130, 183, 25);
